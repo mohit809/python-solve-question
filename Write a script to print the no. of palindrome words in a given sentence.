@@ -1,0 +1,10 @@
+def is_palindrome(word):
+    return word == word[::-1]
+
+def count_palindrome_words(sentence):
+    words = sentence.split()
+    palindrome_count = sum(1 for word in words if is_palindrome(word))
+    return palindrome_count
+
+sentence = "madam and racecar are palindrome words"
+print(count_palindrome_words(sentence))  
