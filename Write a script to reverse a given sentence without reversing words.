@@ -1,0 +1,7 @@
+def reverse_sentence(sentence):
+    words = sentence.split()
+    reversed_words = words[::-1]
+    return ' '.join(reversed_words)
+
+sentence = "I like to code"
+print(reverse_sentence(sentence))  
