@@ -1,0 +1,120 @@
+5. Write a menu-based program to manage BankAccounts using the class
+concept (develop your own logic)
+with the following features.
+ a. account number - data(instance)
+ b. account balance - data(instance)
+ c. account type -data(instance)
+ d. number of accounts-data(class)
+ e. account holder name-data(instance)
+ f. account holder address-data(instance)
+ g. methods for deposit, withdrawing, setting and getting an account &
+account holder details.
+
+
+class BankAccount:
+    number_of_accounts = 0
+    
+    def __init__(self, account_number, account_holder_name, account_holder_address, account_type):
+        self.account_number = account_number
+        self.account_holder_name = account_holder_name
+        self.account_holder_address = account_holder_address
+        self.account_type = account_type
+        self.account_balance = 0.0
+        BankAccount.number_of_accounts += 1
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.account_balance += amount
+            print(f"Deposited {amount}. New balance is {self.account_balance}.")
+        else:
+            print("Deposit amount must be positive.")
+
+    def withdraw(self, amount):
+        if 0 < amount <= self.account_balance:
+            self.account_balance -= amount
+            print(f"Withdrew {amount}. New balance is {self.account_balance}.")
+        else:
+            print("Insufficient funds or invalid amount.")
+
+    def set_account_holder_details(self, name, address):
+        self.account_holder_name = name
+        self.account_holder_address = address
+        print("Account holder details updated.")
+
+    def get_account_holder_details(self):
+        return f"Name: {self.account_holder_name}, Address: {self.account_holder_address}"
+
+    def get_account_details(self):
+        return f"Account Number: {self.account_number}, Account Type: {self.account_type}, Balance: {self.account_balance}"
+
+def main():
+    accounts = {}
+
+    while True:
+        print("\nBank Account Management System")
+        print("1. Create Account")
+        print("2. Deposit")
+        print("3. Withdraw")
+        print("4. Account Details")
+        print("5. Account Holder Details")
+        print("6. Set Account Holder Details")
+        print("7. Exit")
+        choice = int(input("Enter your choice: "))
+
+        if choice == 1:
+            account_number = input("Enter account number: ")
+            name = input("Enter account holder name: ")
+            address = input("Enter account holder address: ")
+            account_type = input("Enter account type (e.g., savings, checking): ")
+            accounts[account_number] = BankAccount(account_number, name, address, account_type)
+            print("Account created successfully.")
+        
+        elif choice == 2:
+            account_number = input("Enter account number: ")
+            if account_number in accounts:
+                amount = float(input("Enter amount to deposit: "))
+                accounts[account_number].deposit(amount)
+            else:
+                print("Account not found.")
+        
+        elif choice == 3:
+            account_number = input("Enter account number: ")
+            if account_number in accounts:
+                amount = float(input("Enter amount to withdraw: "))
+                accounts[account_number].withdraw(amount)
+            else:
+                print("Account not found.")
+        
+        elif choice == 4:
+            account_number = input("Enter account number: ")
+            if account_number in accounts:
+                print(accounts[account_number].get_account_details())
+            else:
+                print("Account not found.")
+        
+        elif choice == 5:
+            account_number = input("Enter account number: ")
+            if account_number in accounts:
+                print(accounts[account_number].get_account_holder_details())
+            else:
+                print("Account not found.")
+        
+        elif choice == 6:
+            account_number = input("Enter account number: ")
+            if account_number in accounts:
+                name = input("Enter new account holder name: ")
+                address = input("Enter new account holder address: ")
+                accounts[account_number].set_account_holder_details(name, address)
+            else:
+                print("Account not found.")
+        
+        elif choice == 7:
+            print("Exiting...")
+            break
+        
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
+
